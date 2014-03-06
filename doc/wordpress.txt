@@ -1,0 +1,26 @@
+[mathjax]
+
+One of the most popular ways to compare results in particle physics is to create plots that show different results with horizontal bands (sometimes known as boxes), making comparisons easier on the eye.  Unsatisfied with the quality of available solutions at the time, I created my own scripts which would make these plots for use in my thesis.
+
+<h3>Links</h3>
+
+<a href="http://www.aidansean.com/box_plotter/">Live page</a>
+<a href="https://github.com/aidansean/box_plotter">GitHub repository</a>
+
+<h3>Overview</h3>
+
+The tool allows the user to create a plot in several steps.  Each entry can be styled quickly and simply, and bands can also be added around different groups of results.  The user can specify up to three uncertainties (for example, statistics, systematic, and theoretical) which can be asymmetric.  The output is an SVG document, giving a very clean and slick image that scales well.  Unfortunately this is not as well suited for creating bitmaps, and also relies on server side (PHP) scripting.
+
+<h3>Challenges</h3>
+
+<dl>
+<dt><em>Challenge</em>: The axis must be generated dynamically, ensuring that the range looks sensible and attractive.</dt>
+
+<dd><em>Solution</em>: Through some cunning mathematics the range is automatically chosen, with a suitable precision.  Since the aim is to make the comparison by eye of different results easy the precision is less important than giving a good sense of scale, so fewer tick marks are preferred. (Resolved)</dd>
+<dt><em>Challenge</em>: It's currently not possible to enter a block of text to create an image.</dt>
+
+<dd><em>Solution</em>: Add a textarea to input user defined text and a parser to read this input.  This would benefit greatly from a simple custom markup language. (To be done)</dd>
+<dt><em>Challenge</em>: It would be nice to have an output to HTML canvas.</dt>
+
+<dd><em>Solution</em>:  Since the SVG is already written, it would be easy to write to canvas as well.  This would require rewriting the code in Javascript, which is relatively straightforward to do.  If there is demand from the particle physics community I will spend some time refactoring the code. (To be done)</dd>
+</dl>
