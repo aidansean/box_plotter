@@ -12,7 +12,6 @@ One of the most popular ways to compare results in particle physics is to create
 The tool allows the user to create a plot in several steps.  Each entry can be styled quickly and simply, and bands can also be added around different groups of results.  The user can specify up to three uncertainties (for example, statistics, systematic, and theoretical) which can be asymmetric.  The output is an SVG document, giving a very clean and slick image that scales well.  Unfortunately this is not as well suited for creating bitmaps, and also relies on server side (PHP) scripting.
 
 <h3>Challenges</h3>
-
 <dl>
 <dt><em>Challenge</em>: The axis must be generated dynamically, ensuring that the range looks sensible and attractive.</dt>
 

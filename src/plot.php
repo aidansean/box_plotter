@@ -22,8 +22,7 @@ $citation = array() ;
 $marker   = array() ;
 $show_row = array() ;
 
-for($i=1 ; $i<$n+1 ; $i++)
-{
+for($i=1 ; $i<$n+1 ; $i++){
   $title[$i-1]    = $_GET['data_'.$i.'_title'] ;
   $notes[$i-1]    = $_GET['data_'.$i.'_notes'] ;
   $year[$i-1]     = $_GET['data_'.$i.'_year'] ;
@@ -50,8 +49,7 @@ $band_start      = array() ;
 $band_end        = array() ;
 
 $bands = array() ;
-for($i=1 ; $i<$n_bands+1 ; $i++)
-{
+for($i=1 ; $i<$n_bands+1 ; $i++){
   $band = array() ;
   $band['average']    = $_GET['band_'.$i.'_average']    ;
   $band['sigma_low']  = $_GET['band_'.$i.'_sigma_low']  ;

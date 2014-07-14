@@ -11,8 +11,7 @@ $g['x_min'] =  1e50 ;
 $g['x_max'] = -1e50 ;
 $g['y_min'] = 0 ;
 $g['y_max'] = (count($data)+2)*100 ;
-for($i=0 ; $i<count($data) ; $i++)
-{
+for($i=0 ; $i<count($data) ; $i++){
 	$box[0] = $data[$i] - sqrt($el1[$i]*$el1[$i] + $el2[$i]*$el2[$i] + $el3[$i]*$el3[$i]) ;
 	$box[1] = $data[$i] - sqrt($el1[$i]*$el1[$i] + $el2[$i]*$el2[$i]) ;
 	$box[2] = $data[$i] - $el1[$i] ;
@@ -20,12 +19,12 @@ for($i=0 ; $i<count($data) ; $i++)
 	$box[4] = $data[$i] + $eh1[$i] ;
 	$box[5] = $data[$i] + sqrt($eh1[$i]*$eh1[$i] + $eh2[$i]*$eh2[$i]) ;
 	$box[6] = $data[$i] + sqrt($eh1[$i]*$eh1[$i] + $eh2[$i]*$eh2[$i] + $eh3[$i]*$eh3[$i]) ;
-	$box['title']    = $title[$i] ;
-	$box['notes']    = $notes[$i] ;
-	$box['year']     = $year[$i] ;
+	$box['title'   ] = $title[$i] ;
+	$box['notes'   ] = $notes[$i] ;
+	$box['year'    ] = $year[$i] ;
 	$box['citation'] = $citation[$i] ;
-	$box['color']    = $c1[$i] ;
-	$box['marker']   = $marker[$i] ;
+	$box['color'   ] = $c1[$i] ;
+	$box['marker'  ] = $marker[$i] ;
 	$box['el1'] = $el1[$i] ;
 	$box['eh1'] = $eh1[$i] ;
 	$box['el2'] = $el2[$i] ;
@@ -47,16 +46,6 @@ echo '<svg width="' .
 	'" height="' . write_float($g['canvas_height']) . 
 	'" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/11009/xlink">' . PHP_EOL ;
 
-if(false)
-{
-  echo '<rect ' .
-	  'x="' . write_float($g['margin_left']) . '" ' . 
-	  'y="' . write_float($g['margin_top']) . '" ' . 
-	  'width="' . write_float($g['canvas_width']-$g['margin_left']-$g['margin_right']) . '" ' . 
-	  'height="' . write_float($g['canvas_height']-$g['margin_top']-$g['margin_bottom']) . '" ' . 
-	  'stroke="rgb(50,50,50)" stroke-width="2" fill-opacity="1.0" fill="rgb(250,250,250)"/>' . PHP_EOL ;
-}
-
 // Plot area	
 echo '<rect ' .
 	'x="' . write_float(x($g['x_min'])) . '" ' . 
@@ -73,15 +62,12 @@ draw_axis_title() ;
 
 echo '</svg>' ;
 
-function draw_boxes()
-{
+function draw_boxes(){
 	global $g , $boxes ;
-	for($i=0 ; $i<count($boxes) ; $i++)
-	{
+	for($i=0 ; $i<count($boxes) ; $i++){
 		$box = $boxes[$i] ;
 		$y = yi($i+2) ;
-		if($box['show_row']==1)
-		{
+		if($box['show_row']==1){
 			echo '<rect ' . 
 				'x="'      . write_float(x($g['x_min']))    . '" ' . 
 				'y="'      . write_float($y-2*$g['radius']) . '" ' .
@@ -114,8 +100,7 @@ function draw_boxes()
 				'x2="' . write_float(x($box[4]))      . '" ' .
 				'y2="' . write_float($y+$g['radius']) . '" ' .
 				' stroke="' . $box['color'] . '" stroke-width="' . 2 . '" />' . PHP_EOL ;
-		for($j=1 ; $j<3 ; $j++)
-		{
+		for($j=1 ; $j<3 ; $j++){
 			if($box['el'.($j+1)]==0 OR $box['eh'.($j+1)]==0) break ;
 			echo '<line ' . 
 				'x1="' . write_float(x($box[2-$j])) . '" ' .
@@ -143,8 +128,7 @@ function draw_boxes()
 				' stroke="' . $box['color'] . '" stroke-width="' . 2 . '" />' . PHP_EOL ;
 		}	
 		
-		switch($box['marker'])
-		{
+		switch($box['marker']){
 			case 1:
 			echo '<circle ' . 
 				'cx="' . write_float(x($box[3])) . '" ' .
@@ -205,8 +189,7 @@ function draw_boxes()
 			'</text>' . PHP_EOL ;
 			
 		// Value
-		if(false)
-		{
+		if(false){
 			$x = $g['margin_left']+$g['label_width']+$g['plot_width']+$g['plot_padding_left']+$g['plot_padding_right'] ;
 			$dx = 25 + 5*$g['precision'] ;
 			echo '<text ' .
@@ -215,21 +198,18 @@ function draw_boxes()
 				' font-family="' . $g['font_family'] . '" font-style="italic" text-anchor="left" dy="2" font-size="12" >' . 
 				print_float($box[3]) . '</text>' . PHP_EOL ;
 		
-			for($j=1 ; $j<4 ; $j++)
-			{
+			for($j=1 ; $j<4 ; $j++){
 				$el = 'el' . $j ;
 				$eh = 'eh' . $j ;
 				if($box[$el]==0 AND $box[$eh]==0) continue ;
-				if($box[$el]==$box[$eh])
-				{
+				if($box[$el]==$box[$eh]){
 					echo '<text ' .
 						'x="' . write_float($x+$j*$dx) . '" ' . 
 						'y="' . write_float($y) . '"' . 
 						' font-family="' . $g['font_family'] . '" font-style="italic" text-anchor="left" dy="2" font-size="12" >' . 
 						' &#0177; ' . print_float($box[$el]) . '</text>' . PHP_EOL ;
 				}
-				else
-				{
+				else{
 					echo '<text ' .
 						'x="' . write_float($x+$j*$dx) . '" ' . 
 						'y="' . write_float($y-5)      . '"' . 
@@ -245,8 +225,7 @@ function draw_boxes()
 	  }
 	  
 		// Year and citation
-		if($box['year']!='' || $box['citation']!='')
-		{
+		if($box['year']!='' || $box['citation']!=''){
 			echo '<text ' .
 				'x="' . write_float($g['margin_left'] + $g['label_width'] + $g['plot_padding_left'] + $g['plot_width'] + $g['plot_padding_right']) . '" ' . 
 				'y="' . write_float($y)         . '"' . 
@@ -260,16 +239,13 @@ function draw_boxes()
 	echo PHP_EOL ;
 }
 
-function draw_bands()
-{
+function draw_bands(){
 	global $g , $bands ;
 	if(count($bands)<1) return ;
-	foreach($bands as $band)
-	{
+	foreach($bands as $band){
 		$y0 = yi(1.5+$band['start']) ;
 		$y1 = yi(1.5+$band['end']) ;
-		for($i=0 ; $i<$band['n_sigma'] ; $i++)
-		{
+		for($i=0 ; $i<$band['n_sigma'] ; $i++){
 			$x0 = x($band['average']-($i+1)*$band['sigma_low']) ;
 			$x1 = x($band['average']-$i*$band['sigma_low']) ;
 			$opacity = $band['opacity']*($band['n_sigma']-$i)/$band['n_sigma'] ;
@@ -297,8 +273,7 @@ function draw_bands()
 	}
 }
 
-function draw_plot_title()
-{
+function draw_plot_title(){
 	global $g , $plot_title ;
 	echo '<text ' .
 		'x="' . write_float(x(0.5*($g['x_min']+$g['x_max']))) . '" ' .
@@ -308,8 +283,7 @@ function draw_plot_title()
 		'</text>' . PHP_EOL ;
 }
 
-function draw_axis_title()
-{
+function draw_axis_title(){
 	global $g , $axis_title ;
 	echo '<text ' .
 		'x="' . write_float(x(0.5*($g['x_min']+$g['x_max']))) . '" ' .
@@ -319,8 +293,7 @@ function draw_axis_title()
 		'</text>' . PHP_EOL ;
 }
 
-function draw_ticks()
-{
+function draw_ticks(){
 	global $g ;
 	$g['range'] = $g['x_max'] - $g['x_min'] ;
 	$g['x_min_log']  = ($g['x_max']>0) ? floor(log10($g['x_max'])) - 1 : floor(log10(-$g['x_max'])) - 1 ;
@@ -329,22 +302,18 @@ function draw_ticks()
 	$g['axis_max'] = ($g['x_max']>0) ? floor($g['x_max']/$g['tick'])*$g['tick'] : -floor(-$g['x_max']/$g['tick'])*$g['tick'] ;
 	$g['axis_min'] = ($g['x_min']>0) ? floor($g['x_min']/$g['tick'])*$g['tick'] : -floor(-$g['x_min']/$g['tick'])*$g['tick'] ;
 	$g['number_of_ticks'] = floor($g['range']/$g['tick']) + 1 ;
-	while($g['number_of_ticks']>10)
-	{
+	while($g['number_of_ticks']>10){
 		$g['tick'] = $g['tick']*5 ;
 		$g['number_of_ticks'] = floor($g['range']/$g['tick']) + 1 ;
 	}
-	while($g['number_of_ticks']<5)
-	{
+	while($g['number_of_ticks']<5){
 		$g['tick'] = $g['tick']/2 ;
 		$g['number_of_ticks'] = floor($g['range']/$g['tick']) + 1 ;
 	}
 	$g['tick_min'] = $g['tick']*floor($g['x_min']/$g['tick']) ;
 	$g['tick_max'] = $g['tick']*floor($g['x_max']/$g['tick']) ;
-	for($u=$g['tick_min'] ; $u<=$g['tick_max']+$g['tick'] ; $u+=$g['tick'])
-	{
-		for($v=$u+0.2*$g['tick'] ; $v<$u+$g['tick'] ; $v+=0.2*$g['tick'])
-		{
+	for($u=$g['tick_min'] ; $u<=$g['tick_max']+$g['tick'] ; $u+=$g['tick']){
+		for($v=$u+0.2*$g['tick'] ; $v<$u+$g['tick'] ; $v+=0.2*$g['tick']){
 			// Small ticks
 			if($v<$g['x_min']) continue ;
 			if($v>$g['x_max']) continue ;
@@ -385,22 +354,19 @@ function draw_ticks()
 	}
 }
 
-function x($u)
-{
+function x($u){
 	global $g ;
 	$left = $g['margin_left'] + $g['label_width'] + $g['plot_padding_left'] ;
 	return $left + $g['plot_width']*($u-$g['x_min'])/($g['x_max']-$g['x_min']) ;	
 }
 
-function y($v)
-{
+function y($v){
 	global $g ;
 	$down = $g['margin_top'] + $g['plot_padding_top'] ; 
 	return $down + $g['plot_height']*($v-$g['y_min'])/($g['y_max']-$g['y_min']) ;	
 }
 
-function yi($i)
-{
+function yi($i){
 	global $g ;
 	return $g['margin_top'] + $g['plot_padding_top'] + $g['plot_height']*($i)/($g['n_boxes']+2) ;	
 }
