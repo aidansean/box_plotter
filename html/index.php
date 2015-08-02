@@ -1,7 +1,8 @@
 <?php
 $title = 'Box plotter' ;
-include('settings.php') ;
-include($_SERVER['FILE_PREFIX'] . '/_core/preamble.php') ;
+include_once('settings.php') ;
+include_once('project.php') ;
+include_once($_SERVER['FILE_PREFIX'] . '/_core/preamble.php') ;
 ?>
 
 <script type="text/javascript">

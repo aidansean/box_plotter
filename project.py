@@ -3,9 +3,13 @@ from project_module import project_object, image_object, link_object, challenge_
 p = project_object('box_plotter', 'Box plotter')
 p.domain = 'http://www.aidansean.com/'
 p.path = 'box_plotter'
-p.preview_image_ = image_object('http://placekitten.com.s3.amazonaws.com/homepage-samples/408/287.jpg', 408, 287)
+p.preview_image    = image_object('%s/images/project.jpg'   %p.path, 150, 250)
+p.preview_image_bw = image_object('%s/images/project_bw.jpg'%p.path, 150, 250)
+p.folder_name = 'aidansean'
 p.github_repo_name = 'box_plotter'
 p.mathjax = True
+p.tags = 'Maths,Physics,Tools'
+p.technologies = 'HTML,PHP,SVG'
 p.links.append(link_object(p.domain, 'box_plotter/', 'Live page'))
 p.introduction = 'One of the most popular ways to compare results in particle physics is to create plots that show different results with horizontal bands (sometimes known as boxes), making comparisons easier on the eye.  Unsatisfied with the quality of available solutions at the time, I created my own scripts which would make these plots for use in my thesis.'
 p.overview = '''The tool allows the user to create a plot in several steps.  Each entry can be styled quickly and simply, and bands can also be added around different groups of results.  The user can specify up to three uncertainties (for example, statistics, systematic, and theoretical) which can be asymmetric.  The output is an SVG document, giving a very clean and slick image that scales well.  Unfortunately this is not as well suited for creating bitmaps, and also relies on server side (PHP) scripting.'''
